@@ -1,3 +1,4 @@
 ```bash
-npx serve
+npm install
+npm start
 ```
