@@ -17,6 +17,9 @@
     "type": "git",
     "url": "git+https://github.com/rafaelcneves/game.git"
   },
+  "engines": {
+    "node": "13.x"
+  }
   "author": "",
   "license": "ISC",
   "bugs": {
