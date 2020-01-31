@@ -29,7 +29,6 @@ export default function createKeyboardListener(document) {
 			keyPressed
 		};
 
-		console.log(command);
 		notifyAll(command);
 	}
 

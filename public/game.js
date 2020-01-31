@@ -3,8 +3,8 @@ export default function createGame() {
 		players: {},
 		fruits: {},
 		screen: {
-			height: 10,
-			width: 10
+			height: 20,
+			width: 20
 		}
 	};
 
@@ -34,17 +34,20 @@ export default function createGame() {
 		const playerId = command.playerId;
 		const playerX = 'playerX' in command ? command.playerX : Math.floor(Math.random() * state.screen.width);
 		const playerY = 'playerY' in command ? command.playerY : Math.floor(Math.random() * state.screen.height);
+		const score = 'score' in command ? command.score : 0;
 
 		state.players[playerId] = {
 			x: playerX,
-			y: playerY
+			y: playerY,
+			score: score
 		};
 
 		notifyAll({
 			type: 'add-player',
 			playerId: playerId,
 			playerX: playerX,
-			playerY: playerY
+			playerY: playerY,
+			score: score
 		});
 	}
 
@@ -113,7 +116,7 @@ export default function createGame() {
 
 		if (player && moveFunction) {
 			moveFunction(player);
-			checkForFruitCollision(playerId)
+			checkForFruitCollision(playerId);
 		}
 
 		return;
@@ -127,8 +130,15 @@ export default function createGame() {
 
 			if (player.x === fruit.x && player.y === fruit.y) {
 				removeFruit({fruitId: fruitId});
+				increaseScore({playerId: playerId, value: 1});
 			}
 		}
+	}
+
+	function increaseScore(command) {
+		const player = state.players[command.playerId];
+
+		player.score += command.value;
 	}
 
 	return {
